@@ -1,4 +1,4 @@
-from cartas import *
+import cartas
 
-b1 = crea_baraja()
-b2 = crea_baraja()
+b1 = cartas.crea_baraja()
+b2 = cartas.crea_baraja()
