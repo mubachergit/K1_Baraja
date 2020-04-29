@@ -1,43 +1,48 @@
 import random
 
+
 palos = ('o', 'c', 'e', 'b')
 cartas = ('A', '2', '3', '4', '5', '6', '7', 'S', 'C', 'R')
 
+class Cartas():
+    def __init__(self):
 
-def crea_baraja():
+        self.baraja = []
+        
+        for palo in palos:
+            for carta in cartas:
+                naipe = carta + palo
+                self.baraja.append(naipe)
 
-    baraja = []
-    for palo in palos:
-        for carta in cartas:
-            naipe = carta + palo
-            baraja.append(naipe)
-
-    return baraja
-
-
-def mezclar(b):
-    br = []
-    i = 0
-    while i < 40:
-        n = random.randint(0, 39)
-        while b[n] in br:
-            n = random.randint(0, 39)
-        br.append(b[n])
-        i += 1
-    b = br
-    return b
+    def mezclar(self):
+        self.baraja_mezclada = []
+        
+        while len(self.baraja) != len(self.baraja_mezclada):
+            n = random.randint(0, (len(self.baraja)-1))
+            while self.baraja[n] in self.baraja_mezclada:
+                n = random.randint(0, (len(self.baraja)-1))
+            self.baraja_mezclada.append(self.baraja[n])
+        self.baraja[:] = self.baraja_mezclada
+        return self.baraja
 
 
-def repartir(b, players, cards):
-    # res = [[]] * players
+    def repartir(self, players, cards):
+        self.players = players
+        self.cards = cards
 
-    res = []
-    for p in range(players):
-        res.append([])
+        res = []
+        for p in range(self.players):
+            res.append([])
 
-    for ic in range(cards):
-        for ij in range(players):
-            carta = b.pop(0)
-            res[ij].append(carta)
+        for ic in range(self.cards):
+            for ij in range(self.players):
+                carta = self.baraja.pop(0)
+                res[ij].append(carta)
 
-    return res
+        return res
+
+    def invertir(b):
+        for i in range (len(b)//2):
+            alm = b[i]
+            b[i] = b[-i-1]
+            b[-i-1] = alm
